@@ -28,11 +28,10 @@ import AppContext from "./components/hooks/createContext";
 import LegalText from "./components/LegalText";
 import NavBar from "./components/Navbar";
 import Stage from "./components/Stage";
-// import CookieText from "./CookieText";
 
-// console.log("hi")
 // Onnxruntime
 ort.env.debug = false;
+
 // set global logging level
 ort.env.logLevel = 'verbose';
 
