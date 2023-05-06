@@ -1,0 +1,1 @@
+/home/yakov/w/SAM/fast-api/frontend/src/enviroments.tsx
