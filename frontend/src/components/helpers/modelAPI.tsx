@@ -52,11 +52,11 @@ const setParmsandQueryModel = ({
   );
 };
 
-const loadNpyTensor = async (tensorFile: string, dType: string) => {
+const loadNpyTensor = async (tensorFile: string) => {
   let npLoader = new npyjs();
   const npArray = await npLoader.load(tensorFile);
   const tensor = new Tensor("float32", npArray.data, npArray.shape);
-  console.log("loadNpyTensor", tensor);
+  // console.log("loadNpyTensor", tensor);
   return tensor;
 };
 
@@ -84,7 +84,7 @@ const queryModelReturnTensors = async ({
     console.log("JSON", segJSON);
 
     const assetRoot = "/assets/gallery"
-    Promise.resolve(loadNpyTensor(`${assetRoot}/${segJSON.npy}`, "float32")).then(
+    Promise.resolve(loadNpyTensor(`${assetRoot}/${segJSON.npy}`)).then(
       (embedding) => handleSegModelResults({
         tensor: embedding
       })

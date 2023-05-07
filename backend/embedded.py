@@ -22,3 +22,20 @@ def make_embedding(encode, root:str, checkpoint:str, model_type:str):
     image_embedding = predictor.get_image_embedding().cpu().numpy()
     np.save(root, image_embedding)
 
+
+def make_new_embedding(filename: str, checkpoint="models/sam_vit_b_01ec64.pth", model_type="vit_b") -> dict:
+    """
+    Outputs image.jpg.npy for an image called image.jpg.
+    Returs a dictionary: {'npy': 'image.jpg.npy'}
+    """
+    print("FILENAME", filename)
+    image = cv2.imread(filename)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    sam = sam_model_registry[model_type](checkpoint=checkpoint)
+    sam.to(device='cuda')
+    predictor = SamPredictor(sam)
+    predictor.set_image(image)
+    image_embedding = predictor.get_image_embedding().cpu().numpy()
+    result = f"{filename}.npy"
+    np.save(result, image_embedding)
+    return {'npy': result}
