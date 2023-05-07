@@ -4,4 +4,6 @@ __pycache__
 .vscode/
 venv/
 build/
-sam_vit_b.pth
+*.pth
+*.onnx
+
