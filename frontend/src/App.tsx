@@ -28,6 +28,8 @@ import AppContext from "./components/hooks/createContext";
 import LegalText from "./components/LegalText";
 import NavBar from "./components/Navbar";
 import Stage from "./components/Stage";
+// not working
+// import { MODEL_DIR } from "./enviroments";
 
 // Onnxruntime
 ort.env.debug = false;
@@ -95,26 +97,17 @@ const App = () => {
   >(null);
   const [modelScale, setModelScale] = useState<modelScaleProps | null>(null);
 
-  // useEffect(() => {
-  //   // Preload images
-  //   for (const photo of photos) {
-  //     const img = new Image();
-  //     img.src = photo.src;
-  //   }
-  // }, []);
-
-  // console.log("WHY IS THIS NOT RUNNING?")
   useEffect(() => {
     const initModel = async () => {
       try {
-        // if (process.env.MODEL_DIR === undefined) return;
+        // vit_h
         const MODEL_DIR = "./interactive_module_quantized_592547_2023_03_19_sam6_long_uncertain.onnx";
+        // const MODEL_DIR = "./sam_onnx_example.onnx";
+        console.log("MODEL DIR", MODEL_DIR);
         const URL: string = MODEL_DIR;
-        // const URL: string = process.env.MODEL_DIR;
         const model = await InferenceSession.create(URL);
         setModel(model);
       } catch (e) {
-        // console.log("MODEL:", e);
         console.error(e);
       }
       try {

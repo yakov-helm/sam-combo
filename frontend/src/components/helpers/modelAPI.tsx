@@ -26,14 +26,14 @@ const setParmsandQueryModel = ({
   shouldDownload,
   shouldNotFetchAllModel,
 }: setParmsandQueryModelProps) => {
-  // console.log("setParmsandQueryModel");
   const canvas = document.createElement("canvas");
   canvas.width = Math.round(width * uploadScale);
   canvas.height = Math.round(height * uploadScale);
   const ctx = canvas.getContext("2d");
+
   if (!ctx) return;
+  
   ctx.drawImage(imgData, 0, 0, canvas.width, canvas.height);
-  // console.log("plot uploaded image");
   canvas.toBlob(
     (blob) => {
       blob &&
