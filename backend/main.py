@@ -5,7 +5,7 @@ from starlette.middleware.cors import CORSMiddleware
 import os
 from PIL import Image
 
-from embedded import make_new_embedding, make_embedding
+from embedded import make_embedding
 
 app = FastAPI()
 
@@ -25,38 +25,24 @@ async def list_files(request: Request):
     return {"files": out}
 
 
-# @app.post("/ai/embedded-old/{file_name}")
-# async def embedded(request: Request, file_name: str):
-#     print("COMPUTING THE EMBEDDING")
-#     body = await request.body()
-#     root = f"{GALLERY}/{file_name}.npy"
-#     if os.path.isfile(root):
-#         print("RE-USING EXISTING EMBEDDING IN", root)
-#     else:
-#         checkpoint = "sam_vit_b.pth"
-#         model_type = "vit_b"
-#         print('PRODUCED EMBEDDING IN', root)
-#         make_embedding(body, root, checkpoint, model_type)
-#     return {"npy": f"{file_name}.npy"}
-
-
-@app.post("/ai/embedded/{file_name}")
-async def embedded(request: Request, file_name: str):
+@app.post("/ai/embedded/{model_type}/{file_name}")
+async def embedded(request: Request, model_type: str, file_name: str):
     print("COMPUTING THE EMBEDDING")
     body = await request.body()
     img_path = f"{GALLERY}/{file_name}"
-    npy_path = f"{img_path}.npy"
+    npy_path = f"{img_path}.{model_type}.npy"
     if os.path.isfile(npy_path):
         print("RE-USING EXISTING EMBEDDING IN", npy_path)
     else:
-        result = make_new_embedding(img_path)
-        print('PRODUCED EMBEDDING IN', result['npy'])
-    return {"npy": f"{file_name}.npy"}
+        print(f"IMAGE PATH {img_path}")
+        make_embedding(model_type, img_path, npy_path)
+        print(f"PRODUCED EMBEDDING IN {npy_path}")
+    return {"npy": npy_path.split('/')[-1]}
 
 
-# @app.post("/ai/embedded/all/{file_name}")
-# async def embedded(request: Request, file_name:str):
-#     return Response(status_code=200)
+@app.post("/ai/embedded/all/{file_name}")
+async def embedded(request: Request, file_name:str):
+    return Response(status_code=200)
 
 
 app.add_middleware(

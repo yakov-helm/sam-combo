@@ -71,8 +71,7 @@ def to_onnx(model_type: str, checkpoint: str):
 if __name__ == '__main__':
     assert len(argv) == 2, f"Usage: {argv[0]} model_type"
     model_type = argv[1]
-    checkpoints = glob(f"models/{model_type}/*.pth")
+    checkpoints = sorted(glob(f"models/{model_type}/*.pth"))
     assert checkpoints, f"Need at least one .pth checkpoint in models/{model_type}"
     checkpoint = checkpoints[0]
-
-to_onnx(model_type=model_type, checkpoint=checkpoint)
+    to_onnx(model_type=model_type, checkpoint=checkpoint)
