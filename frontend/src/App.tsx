@@ -22,7 +22,6 @@ import {
   setParmsandQueryEraseModel,
   setParmsandQueryModel,
 } from "./components/helpers/modelAPI";
-import HomePage from "./components/HomePage";
 import AppContext from "./components/hooks/createContext";
 import LegalText from "./components/LegalText";
 import NavBar from "./components/Navbar";
@@ -538,28 +537,6 @@ const App = () => {
               className={`flex flex-col h-full w-full overflow-x-hidden items-center overflow-y-scroll`}
             >
               <NavBar resetState={handleResetState} />
-              <Footer />
-            </div>
-          }
-        />
-        */}
-        {/*
-        <Route
-          path="/"
-          element={
-            <div className={`flex flex-col h-full overflow-x-hidden`}>
-              <NavBar resetState={handleResetState} />
-              <HomePage
-                scale={modelScale}
-                handleResetState={handleResetState}
-                handleMagicErase={handleMagicErase}
-                handleImage={handleImage}
-                hasClicked={hasClicked}
-                setHasClicked={setHasClicked}
-                handleSelectedImage={handleSelectedImage}
-                image={image}
-                model={model}
-              />
               <Footer />
             </div>
           }

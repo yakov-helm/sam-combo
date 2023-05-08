@@ -13,7 +13,7 @@ export interface ImagePickerProps {
   showGallery: [showGallery: boolean, setShowGallery: (e: boolean) => void];
 }
 
-const dirname: string = 'digits';
+const dirname: string = 'shutter';
 
 const LegalModal = () => {
   return (

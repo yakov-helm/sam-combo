@@ -85,7 +85,6 @@ const queryModelReturnTensors = async ({
 
     console.log("GOTT JSON", segJSON);
 
-    const assetRoot = "/assets/gallery"
     Promise.resolve(loadNpyTensor(segJSON.npy)).then(
       (embedding) => handleSegModelResults({
         tensor: embedding
