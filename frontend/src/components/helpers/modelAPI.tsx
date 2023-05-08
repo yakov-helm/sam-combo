@@ -70,7 +70,9 @@ const queryModelReturnTensors = async ({
   shouldNotFetchAllModel,
 }: queryModelReturnTensorsProps) => {
 
-  const segRequest = fetch(`${API_ENDPOINT}/${imgName}`, {
+  let URL = `${API_ENDPOINT}/${imgName}`;
+  console.log("FETCHING URL", URL);
+  const segRequest = fetch(URL, {
     method: "POST",
     body: blob,
   }).then(async (segResponse) => {
@@ -81,10 +83,10 @@ const queryModelReturnTensors = async ({
     }
     const segJSON = await segResponse.json();
 
-    console.log("JSON", segJSON);
+    console.log("GOTT JSON", segJSON);
 
     const assetRoot = "/assets/gallery"
-    Promise.resolve(loadNpyTensor(`${assetRoot}/${segJSON.npy}`)).then(
+    Promise.resolve(loadNpyTensor(segJSON.npy)).then(
       (embedding) => handleSegModelResults({
         tensor: embedding
       })

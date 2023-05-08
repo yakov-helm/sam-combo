@@ -22,7 +22,6 @@ import {
   setParmsandQueryEraseModel,
   setParmsandQueryModel,
 } from "./components/helpers/modelAPI";
-import photos from "./components/helpers/photos";
 import HomePage from "./components/HomePage";
 import AppContext from "./components/hooks/createContext";
 import LegalText from "./components/LegalText";
@@ -383,7 +382,6 @@ const App = () => {
       const img = new Image();
       let imgData: File = new File([""], 'none');
       let imgName: string = "";
-      let imgPath: string = "";
 
       if (data instanceof File){
         imgData = data;
@@ -392,10 +390,14 @@ const App = () => {
         if (!(data instanceof URL)) {
           data = new URL("" + data);
         }
+        let imgPath: string = "";
         console.log("GETTING FILE from server " + data);
         imgData = await getFile(data);
         imgPath = data.pathname;
-        imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1);
+        let arr = imgPath.split('/');
+        let file_name = arr[arr.length-1];
+        let dir_name = arr[arr.length-2];
+        imgName = dir_name + '/' + file_name;
         console.log("IMAGE PATH " + imgPath);
       }
 

@@ -3,7 +3,7 @@ import { Button, Checkbox } from "react-daisyui";
 import { useDropzone } from "react-dropzone";
 import PhotoAlbum from "react-photo-album";
 import { NavLink } from "react-router-dom";
-import photos from "./helpers/photos";
+import { getDirs, getDirPhotos } from "./helpers/photos";
 import AppContext from "./hooks/createContext";
 export interface ImagePickerProps {
   handleSelectedImage: (
@@ -12,6 +12,8 @@ export interface ImagePickerProps {
   ) => void;
   showGallery: [showGallery: boolean, setShowGallery: (e: boolean) => void];
 }
+
+const dirname: string = 'digits';
 
 const LegalModal = () => {
   return (
@@ -47,7 +49,7 @@ const ImagePicker = ({
   const isMobile = window.innerWidth < 768;
 
   const downloadAllImageResponses = () => {
-    photos.forEach((photo, i) => {
+    getDirPhotos(dirname).forEach((photo, i) => {
       setTimeout(() => {
         handleSelectedImage(new URL(photo.src, location.origin), {
           shouldDownload: true,
@@ -195,7 +197,7 @@ const ImagePicker = ({
       >
         <PhotoAlbum
           layout={isMobile ? "columns" : "rows"}
-          photos={photos}
+          photos={getDirPhotos(dirname)}
           columns={1}
           onClick={(e: any) => handleSelectedImage(e.event.target.src)}
           renderPhoto={image}
