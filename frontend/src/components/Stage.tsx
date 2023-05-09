@@ -678,22 +678,6 @@ const Stage = ({
                 handleSelectedImage={handleSelectedImage}
               />
               <div className="relative flex flex-col items-center justify-center flex-1 overflow-hidden md:overflow-visible md:px-12 md:py-9">
-                <div className="absolute top-0 z-30 flex flex-col items-center justify-center w-full md:relative">
-                  <MobileOptionNavBar
-                    handleResetInteraction={handleResetInteraction}
-                    handleUndoInteraction={handleUndoInteraction}
-                    handleRedoInteraction={handleRedoInteraction}
-                    handleResetState={handleResetState}
-                    handleImage={handleImage}
-                    userNegClickBool={[userNegClickBool, setUserNegClickBool]}
-                  />
-                  <ToolTip
-                    isHoverToolTip={[isHoverToolTip, setIsHoverToolTip]}
-                    hasClicked={hasClicked}
-                    annotations={annotations}
-                    allText={[allText, setAllText]}
-                  />
-                </div>
                 <div
                   className="relative flex-1 w-full mb-3 md:my-7"
                   ref={containerRef}
