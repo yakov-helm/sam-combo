@@ -23,9 +23,9 @@ import {
   setParmsandQueryModel,
 } from "./components/helpers/modelAPI";
 import AppContext from "./components/hooks/createContext";
-import LegalText from "./components/LegalText";
-import NavBar from "./components/Navbar";
 import Stage from "./components/Stage";
+// import { setDir, getDir } from "./components/helpers/photos";
+
 // not working
 // import { MODEL_DIR } from "./enviroments";
 
@@ -106,20 +106,6 @@ const App = () => {
         const model = await InferenceSession.create(URL);
         setModel(model);
       } catch (e) {
-        console.error(e);
-      }
-      try {
-        // console.log("MULTI MASK MODEL");
-        // if (process.env.MULTI_MASK_MODEL_DIR === undefined) return;
-        const MULTI_MASK_MODEL_DIR = "./interactive_module_quantized_592547_2023_03_20_sam6_long_all_masks_extra_data_with_ious.onnx";
-        const URL2: string = MULTI_MASK_MODEL_DIR;
-        // console.log("MULTI MASK MODEL URL:", URL2);
-        // const URL2: string = process.env.MULTI_MASK_MODEL_DIR;
-        const multiMaskModel = await InferenceSession.create(URL2);
-        // console.log("multiMaskModel:", multiMaskModel);
-        setMultiMaskModel(multiMaskModel);
-      } catch (e) {
-        // console.log("MULTI MASK MODEL:", e);
         console.error(e);
       }
     };
@@ -389,13 +375,21 @@ const App = () => {
         if (!(data instanceof URL)) {
           data = new URL("" + data);
         }
-        let imgPath: string = "";
         console.log("GETTING FILE from server " + data);
         imgData = await getFile(data);
-        imgPath = data.pathname;
+        let imgPath = data.pathname;
         let arr = imgPath.split('/');
         let file_name = arr[arr.length-1];
         let dir_name = arr[arr.length-2];
+
+        // console.log("CURRENT DIR", getDir());
+        // let new_dir = setDir(dir_name);
+        // if (!(new_dir === dir_name)) {
+        //   const navigate = useNavigate();
+        //   console.log("navigating away to demo/hello");
+        //   navigate('demo/hello');
+        // }
+
         imgName = dir_name + '/' + file_name;
         console.log("IMAGE PATH " + imgPath);
       }
@@ -515,40 +509,10 @@ const App = () => {
     <>
       <Routes>
         <Route path="*" element={<Navigate replace to="/demo" />} />
-        {/*
-        <Route
-          path="/terms"
-          element={
-            <div
-              className={`flex flex-col h-full w-full overflow-x-hidden items-center overflow-y-scroll`}
-            >
-              <NavBar resetState={handleResetState} />
-              <div className="w-full p-4 max-w-prose">
-                <LegalText />
-              </div>
-              <Footer />
-            </div>
-          }
-        />
-        <Route
-          path="/cookies"
-          element={
-            <div
-              className={`flex flex-col h-full w-full overflow-x-hidden items-center overflow-y-scroll`}
-            >
-              <NavBar resetState={handleResetState} />
-              <Footer />
-            </div>
-          }
-        />
-        */}
         <Route
           path="/demo"
           element={
             <div className={`flex flex-col h-full overflow-hidden`}>
-              {/*
-              <NavBar resetState={handleResetState} />
-              */}
               <Stage
                 scale={modelScale}
                 handleResetState={handleResetState}
