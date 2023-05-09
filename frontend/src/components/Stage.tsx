@@ -678,40 +678,22 @@ const Stage = ({
                 handleSelectedImage={handleSelectedImage}
               />
               <div className="relative flex flex-col items-center justify-center flex-1 overflow-hidden md:overflow-visible md:px-12 md:py-9">
-                <div
-                  className="relative flex-1 w-full mb-3 md:my-7"
-                  ref={containerRef}
-                >
-                  <Profiler
-                    id="Canvas"
-                    onRender={(
-                      id, // the "id" prop of the Profiler tree that has just committed
-                      phase, // either "mount" (if the tree just mounted) or "update" (if it re-rendered)
-                      actualDuration, // time spent rendering the committed update
-                      baseDuration, // estimated time to render the entire subtree without memoization
-                      startTime, // when React began rendering this update
-                      commitTime, // when React committed this update
-                      interactions
-                    ) => {
-                      // console.log(`${id} took ${actualDuration}ms`);
-                    }}
-                  >
-                    <Canvas
-                      konvaRef={konvaRef}
-                      annotations={annotations}
-                      newAnnotation={newAnnotation}
-                      scale={scale}
-                      handleMouseUp={handleMouseUp}
-                      handleMouseDown={handleMouseDown}
-                      handleMouseMove={handleMouseMove}
-                      handleMouseOut={handleMouseOut}
-                      containerRef={containerRef}
-                      hasClicked={hasClicked}
-                      setCanvasScale={setCanvasScale}
-                      isHoverToolTip={[isHoverToolTip, setIsHoverToolTip]}
-                      allText={[allText, setAllText]}
-                    />
-                  </Profiler>
+                <div className="relative flex-1 w-full mb-3 md:my-7" ref={containerRef}>
+                  <Canvas
+                    konvaRef={konvaRef}
+                    annotations={annotations}
+                    newAnnotation={newAnnotation}
+                    scale={scale}
+                    handleMouseUp={handleMouseUp}
+                    handleMouseDown={handleMouseDown}
+                    handleMouseMove={handleMouseMove}
+                    handleMouseOut={handleMouseOut}
+                    containerRef={containerRef}
+                    hasClicked={hasClicked}
+                    setCanvasScale={setCanvasScale}
+                    isHoverToolTip={[isHoverToolTip, setIsHoverToolTip]}
+                    allText={[allText, setAllText]}
+                  />
                 </div>
               </div>
             </div>
