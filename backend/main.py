@@ -61,7 +61,6 @@ async def embedded(request: Request, model_type: str, dir_name: str, file_name: 
         make_embedding(model_type, img_path, npy_path)
         print(f"PRODUCED EMBEDDING IN {npy_path}")
     return {"npy": npy_path}
-    return {"npy": npy_path.split('/')[-1]}
 
 
 @app.post("/ai/embedded/all/{file_name}")
