@@ -18,7 +18,6 @@ import AppContext from "./hooks/createContext";
 import ImagePicker from "./ImagePicker";
 import LoadingModal from "./LoadingModal";
 import MobileOptionNavBar from "./MobileOptionNavBar";
-import MobileSegmentDrawer from "./MobileSegmentDrawer";
 import PointsModal from "./PointsModal";
 import SegmentDrawer from "./SegmentDrawer";
 import ToolTip from "./ToolTip";
@@ -245,7 +244,7 @@ const Stage = ({
     const { x, y } = e.target.getStage().getPointerPosition();
     if (segmentTypes === "Click" && shouldUpdateOnDrag && !hasClicked) {
       handleMoveToMask(e, x, y);
-    } else if (newAnnotation.length === 1) {
+    } else if (newAnnotation.length >= 1) {
       const sx = newAnnotation[0].x;
       const sy = newAnnotation[0].y;
       setNewAnnotation([getAnnotation({ sx, sy, x, y })]);
@@ -730,12 +729,6 @@ const Stage = ({
                     />
                   </Profiler>
                 </div>
-                <MobileSegmentDrawer
-                  handleResetInteraction={handleResetInteraction}
-                  handleMagicErase={handleMagicErase}
-                  handleCreateSticker={handleCreateSticker}
-                  userNegClickBool={[userNegClickBool, setUserNegClickBool]}
-                />
               </div>
             </div>
           ) : !isToolBarUpload ? (

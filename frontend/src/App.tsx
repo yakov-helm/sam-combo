@@ -282,21 +282,11 @@ const App = () => {
   };
 
   useEffect(() => {
-    // TODO: By default use the runModel function
-    // When the multi mask mode is enabled, run runMultiMaskModel
     const runOnnx = async () => {
-      if (isMultiMaskMode) {
-        if (hasClicked) {
-          // Only enable multi mask case, when there are clicks.
-          // We don't want the hover feature for this mode
-          runMultiMaskModel();
-        }
-      } else {
-        runModel();
-      }
+      runModel();
     };
     runOnnx();
-  }, [clicks, hasClicked, isMultiMaskMode]);
+  }, [clicks, hasClicked]);
 
   const handleMagicErase = () => {
     if (image !== null) {

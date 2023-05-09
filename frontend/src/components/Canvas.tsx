@@ -392,7 +392,7 @@ const Canvas = ({
     if (isHovering && clicks && clicks.length == 1) {
       setShouldShowAnimation(true);
     } else {
-      setShouldShowAnimation(false);
+      setShouldShowAnimation(true);
     }
   }, [clicks, isHovering]);
 
