@@ -142,6 +142,7 @@ const ImagePicker = ({
   };
 
   const image = ({ imageProps }: { imageProps: any }) => {
+    // TODO: figure out why it's called so many times
     const { src, key, style, onClick } = imageProps;
     console.log("GOT SRC", src);
     return (

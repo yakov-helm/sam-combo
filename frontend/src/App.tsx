@@ -493,7 +493,7 @@ const App = () => {
   };
 
   const HandleDir = () => {
-    // set the default directory
+    // handle specific directory
     let { dirName } = useParams();
     console.log("NAVIGATING TO DIR", dirName);
     setDir("" + dirName);
@@ -506,19 +506,24 @@ const App = () => {
         {/* Process a specific directory */}
         <Route path="demo/:dirName" element={<HandleDir />} />
 
-        {/* Display a list of directories -- TOOD: maybe replace with images */}
+        {/* Display a list of directories -- TOOD: maybe replace with images -- TODO: better table, maybe */}
         <Route path="" element={
           <div>
             <h1><b>Object types</b></h1>
-            <ul>
+            <pre>
+            <table>
+              <tr>
+                <th>Directory</th>
+                <th>Image count</th>
+              </tr>
               {getDirs().map((dir) => (
-                <li key={dir.name}>
-                  <pre>
-                    <Link to={"/demo/" + dir.name}> * {dir.name}</Link>: {dir.count}
-                  </pre>
-                </li>
+                <tr key={dir.name}>
+                    <td><Link to={"/demo/" + dir.name}> * <span style={{color: 'blue'}}>{dir.name}</span></Link></td>
+                    <td>: {dir.count}</td>
+                </tr>
               ))}
-            </ul>
+            </table>
+            </pre>
           </div>
         } />
 

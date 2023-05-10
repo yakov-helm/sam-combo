@@ -19,6 +19,7 @@ export const getPhotos = (): any[] => {
 
 
 export const getDirs = (): any[] => {
+  // TODO: figure out why it's called so often...
   let result = getFiles(API_LIST_DIRS, "dirs");
   console.log("GOT RESULT", result);
   return result;
