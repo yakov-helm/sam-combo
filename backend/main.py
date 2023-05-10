@@ -21,13 +21,11 @@ def get_images(dir_name: str, n=0):
 
 @app.get("/ai/list-dirs")
 async def list_dirs(request: Request):
-    """List directories. TODO: add stats, such as the number of images."""
+    """List directories and the number of images."""
     body = await request.body()
     fnames = [f"{GALLERY}/{fname}" for fname in os.listdir(GALLERY)]
-    out = []
-    dir_names = [fname.split('/')[-1] for fname in fnames if os.path.isdir(fname)]
-    for dir_name in dir_names:
-        out.append({'name': dir_name, 'count': 5})
+    dir_names = [fname for fname in fnames if os.path.isdir(fname)]
+    out = [{'name': dir_name.split('/')[-1], 'count': len(get_images(dir_name))} for dir_name in dir_names]
     result = {"dirs": out}
     return result
 
@@ -48,17 +46,12 @@ async def list_images(request: Request, dir_name: str) -> dict:
 
 @app.post("/ai/embedded/{model_type}/{dir_name}/{file_name}")
 async def embedded(request: Request, model_type: str, dir_name: str, file_name: str):
-    print("COMPUTING THE EMBEDDING")
     body = await request.body()
     img_path = f"{GALLERY}/{dir_name}/{file_name}"
     npy_path = f"{img_path}.{model_type}.npy"
-    if os.path.isfile(npy_path):
-        print("RE-USING EXISTING EMBEDDING IN", npy_path)
-    else:
-        print(f"IMAGE PATH {img_path}")
-        make_embedding(model_type, img_path, npy_path)
-        print(f"PRODUCED EMBEDDING IN {npy_path}")
-    return {"npy": npy_path}
+    print("COMPUTING THE EMBEDDING FOR", img_path)
+    result = make_embedding(model_type, img_path, npy_path)
+    return result
 
 
 app.add_middleware(
