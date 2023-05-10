@@ -12,7 +12,6 @@ import {
   useParams
 } from "react-router-dom";
 
-// import "./assets/scss/App.scss";
 import "./App.css";
 import Footer from "./components/Footer";
 import getFile from "./components/helpers/getFile";
@@ -36,7 +35,6 @@ import {
 import AppContext from "./components/hooks/createContext";
 import Stage from "./components/Stage";
 import { setDir, getDirs } from "./components/helpers/photos";
-import { dir } from "console";
 
 // not working
 // import { MODEL_DIR } from "./enviroments";
