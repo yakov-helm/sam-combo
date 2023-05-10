@@ -12,7 +12,8 @@ import {
   useParams
 } from "react-router-dom";
 
-import "./assets/scss/App.scss";
+// import "./assets/scss/App.scss";
+import "./App.css";
 import Footer from "./components/Footer";
 import getFile from "./components/helpers/getFile";
 import { handleImageScale } from "./components/helpers/ImageHelper";
@@ -35,6 +36,7 @@ import {
 import AppContext from "./components/hooks/createContext";
 import Stage from "./components/Stage";
 import { setDir, getDirs } from "./components/helpers/photos";
+import { dir } from "console";
 
 // not working
 // import { MODEL_DIR } from "./enviroments";
@@ -59,6 +61,8 @@ ort.env.wasm.wasmPaths = {
 // ort.env.webgl.pack = true;
 
 const App = () => {
+  console.log("CALLING APP");
+
   const {
     click: [click, setClick],
     clicks: [clicks, setClicks],
@@ -512,16 +516,20 @@ const App = () => {
             <h1><b>Object types</b></h1>
             <pre>
             <table>
-              <tr>
-                <th>Directory</th>
-                <th>Image count</th>
-              </tr>
+              <thead>
+                <tr key="header">
+                  <th> Directory </th>
+                  <th> Image count </th>
+                </tr>
+              </thead>
+              <tbody>
               {getDirs().map((dir) => (
                 <tr key={dir.name}>
-                    <td><Link to={"/demo/" + dir.name}> * <span style={{color: 'blue'}}>{dir.name}</span></Link></td>
-                    <td>: {dir.count}</td>
+                    <td><Link to={"/demo/" + dir.name}>  {dir.name}  </Link></td>
+                    <td> {dir.count} </td>
                 </tr>
               ))}
+              </tbody>
             </table>
             </pre>
           </div>
