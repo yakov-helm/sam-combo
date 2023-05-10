@@ -1,40 +1,30 @@
-import { useParams } from 'react-router';
-
 import { API_LIST_DIRS, API_LIST_ALL } from "../../enviroments";
 
 
 let dirname = "";
 
 
-const getFiles = (endpoint: string): any[] => {
+const getFiles = (endpoint: string, keyword: string): any[] => {
   const xhr = new XMLHttpRequest();
   xhr.open("GET", endpoint, false);
   xhr.send();
-  const json = JSON.parse(xhr.response);
-  return json["files"];
+  let result = JSON.parse(xhr.response);
+  return result[keyword];
 };
 
 
 export const getPhotos = (): any[] => {
-  // get the photos -- one case or the other
-  if (dirname === "") {
-    // show the available dirs
-    let result = getFiles(API_LIST_DIRS);
-    return result;
-  } else {
-    // show the files in the dir
-    let result = getFiles(API_LIST_ALL + '/' + dirname);
-    return result;
-  }
+  return getFiles(API_LIST_ALL + '/' + dirname, "images");
 };
 
 
-export const setDir = (newDirName: string): string => {
-  // go into the specific directory
-  if (dirname === "") {
-    dirname = newDirName;
-    return "";
-  } else {
-    return dirname;
-  }
+export const getDirs = (): any[] => {
+  let result = getFiles(API_LIST_DIRS, "dirs");
+  console.log("GOT RESULT", result);
+  return result;
+}
+
+
+export const setDir = (newDirName: string) => {
+  dirname = newDirName;
 };

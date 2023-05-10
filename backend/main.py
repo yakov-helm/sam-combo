@@ -21,23 +21,20 @@ def get_images(dir_name: str, n=0):
 
 @app.get("/ai/list-dirs")
 async def list_dirs(request: Request):
+    """List directories. TODO: add stats, such as the number of images."""
     body = await request.body()
     fnames = [f"{GALLERY}/{fname}" for fname in os.listdir(GALLERY)]
-    dir_names = [fname for fname in fnames if os.path.isdir(fname)]
     out = []
+    dir_names = [fname.split('/')[-1] for fname in fnames if os.path.isdir(fname)]
     for dir_name in dir_names:
-        fnames = get_images(dir_name)
-        if fnames:
-            fname = fnames[0]
-            im = Image.open(fname)
-            w, h = im.size
-            out.append({'src': fname, 'width': w, 'height': h})
-    result = {"files": out}
+        out.append({'name': dir_name, 'count': 5})
+    result = {"dirs": out}
     return result
 
 
 @app.get("/ai/list/{dir_name}")
-async def list_files(request: Request, dir_name: str) -> dict:
+async def list_images(request: Request, dir_name: str) -> dict:
+    """List images in the directory"""
     body = await request.body()
     fnames = get_images(f"{GALLERY}/{dir_name}")
     out = []
@@ -45,7 +42,7 @@ async def list_files(request: Request, dir_name: str) -> dict:
         im = Image.open(fname)
         w, h = im.size
         out.append({'src': fname, 'width': w, 'height': h})
-    result = {"files": out}
+    result = {"images": out}
     return result
 
 

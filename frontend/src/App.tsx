@@ -34,7 +34,7 @@ import {
 } from "./components/helpers/modelAPI";
 import AppContext from "./components/hooks/createContext";
 import Stage from "./components/Stage";
-import { setDir } from "./components/helpers/photos";
+import { setDir, getDirs } from "./components/helpers/photos";
 
 // not working
 // import { MODEL_DIR } from "./enviroments";
@@ -503,8 +503,29 @@ const App = () => {
   return (
     <>
       <Routes>
+        {/* Process a specific directory */}
         <Route path="demo/:dirName" element={<HandleDir />} />
+
+        {/* Display a list of directories -- TOOD: maybe replace with images */}
+        <Route path="" element={
+          <div>
+            <h1><b>Object types</b></h1>
+            <ul>
+              {getDirs().map((dir) => (
+                <li key={dir.name}>
+                  <pre>
+                    <Link to={"/demo/" + dir.name}> * {dir.name}</Link>: {dir.count}
+                  </pre>
+                </li>
+              ))}
+            </ul>
+          </div>
+        } />
+
+        {/* All others navigate to /demo */}
         <Route path="*" element={<Navigate replace to="/demo" />} />
+
+        {/* In Demo, do the heavy lifting in the right directory */}
         <Route
           path="/demo"
           element={
@@ -523,6 +544,7 @@ const App = () => {
             </div>
           }
         />
+
       </Routes>
     </>
   );
