@@ -2,12 +2,22 @@ import LZString from "lz-string";
 import { InferenceSession, Tensor } from "onnxruntime-web";
 import * as ort from 'onnxruntime-web';
 import React, { useContext, useEffect, useState } from "react";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  Navigate,
+  useParams
+} from "react-router-dom";
+
 import "./assets/scss/App.scss";
 import Footer from "./components/Footer";
 import getFile from "./components/helpers/getFile";
 import { handleImageScale } from "./components/helpers/ImageHelper";
 import { modelScaleProps } from "./components/helpers/Interface";
+
 import {
   getAllMasks,
   getBestPredMask,
@@ -24,7 +34,7 @@ import {
 } from "./components/helpers/modelAPI";
 import AppContext from "./components/hooks/createContext";
 import Stage from "./components/Stage";
-// import { setDir, getDir } from "./components/helpers/photos";
+import { setDir } from "./components/helpers/photos";
 
 // not working
 // import { MODEL_DIR } from "./enviroments";
@@ -372,14 +382,6 @@ const App = () => {
         let file_name = arr[arr.length-1];
         let dir_name = arr[arr.length-2];
 
-        // console.log("CURRENT DIR", getDir());
-        // let new_dir = setDir(dir_name);
-        // if (!(new_dir === dir_name)) {
-        //   const navigate = useNavigate();
-        //   console.log("navigating away to demo/hello");
-        //   navigate('demo/hello');
-        // }
-
         imgName = dir_name + '/' + file_name;
         console.log("IMAGE PATH " + imgPath);
       }
@@ -420,11 +422,6 @@ const App = () => {
       console.log(error);
     }
   };
-
-  // useEffect(() => {
-  //   // redirect after handleSelectedImage runs
-  //   if (image) navigate("/playground");
-  // }, [image]);
 
   const handleSegModelResults = ({ tensor }: { tensor: Tensor }) => {
     // console.log("handleSegModelResults");
@@ -495,9 +492,18 @@ const App = () => {
     setPredMasks(null);
   };
 
+  const HandleDir = () => {
+    // set the default directory
+    let { dirName } = useParams();
+    console.log("NAVIGATING TO DIR", dirName);
+    setDir("" + dirName);
+    return <Navigate replace to="/demo" />;
+  };
+
   return (
     <>
       <Routes>
+        <Route path="demo/:dirName" element={<HandleDir />} />
         <Route path="*" element={<Navigate replace to="/demo" />} />
         <Route
           path="/demo"

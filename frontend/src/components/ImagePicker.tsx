@@ -13,8 +13,6 @@ export interface ImagePickerProps {
   showGallery: [showGallery: boolean, setShowGallery: (e: boolean) => void];
 }
 
-const dirname: string = 'shutter';
-
 const LegalModal = () => {
   return (
     <div className="modal" id="my-modal-2">
@@ -145,6 +143,7 @@ const ImagePicker = ({
 
   const image = ({ imageProps }: { imageProps: any }) => {
     const { src, key, style, onClick } = imageProps;
+    console.log("GOT SRC", src);
     return (
       <img
         className="m-0 lg:hover:opacity-50 active:opacity-50"

@@ -1,6 +1,5 @@
 import Konva from "konva";
 import React, {
-  Profiler,
   useContext,
   useEffect,
   useRef,
@@ -17,7 +16,6 @@ import {
 import AppContext from "./hooks/createContext";
 import ImagePicker from "./ImagePicker";
 import LoadingModal from "./LoadingModal";
-import MobileOptionNavBar from "./MobileOptionNavBar";
 import PointsModal from "./PointsModal";
 import SegmentDrawer from "./SegmentDrawer";
 import ToolTip from "./ToolTip";

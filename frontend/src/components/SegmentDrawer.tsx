@@ -479,19 +479,6 @@ const SegmentDrawer = ({
               setIsCutOutMounted(false);
             }}
           >
-            <div className="flex">
-              <Sparkle isActive={true} />
-              <span
-                className={`pl-3 font-bold ${
-                  segmentTypes === "All" && "text-blue-600"
-                } ${
-                  (!isModelLoaded["allModel"] || (isLoading && !isErased)) &&
-                  "disabled"
-                }`}
-              >
-                Everything
-              </span>
-            </div>
             {segmentTypes !== "All" && visibleAllHover && (
               <Animate isMounted={isAllMounted}>
                 <p

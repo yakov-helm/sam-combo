@@ -1,3 +1,5 @@
+import { useParams } from 'react-router';
+
 import { API_LIST_DIRS, API_LIST_ALL } from "../../enviroments";
 
 
@@ -17,10 +19,12 @@ export const getPhotos = (): any[] => {
   // get the photos -- one case or the other
   if (dirname === "") {
     // show the available dirs
-    return getFiles(API_LIST_DIRS);
+    let result = getFiles(API_LIST_DIRS);
+    return result;
   } else {
-  // show the files in the dir
-  return getFiles(API_LIST_ALL + '/' + dirname);
+    // show the files in the dir
+    let result = getFiles(API_LIST_ALL + '/' + dirname);
+    return result;
   }
 };
 
@@ -29,14 +33,8 @@ export const setDir = (newDirName: string): string => {
   // go into the specific directory
   if (dirname === "") {
     dirname = newDirName;
-    console.log("Changed default dir name to", dirname);
     return "";
   } else {
     return dirname;
   }
-};
-
-
-export const getDir = (): string => {
-  return dirname;
 };
